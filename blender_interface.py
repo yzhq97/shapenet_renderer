@@ -22,7 +22,7 @@ class BlenderInterface():
 
         world = bpy.context.scene.world
         world.horizon_color = background_color
-        world.light_settings.use_environment_light = True
+        world.light_settings.use_environment_light = False
         world.light_settings.environment_color = 'SKY_COLOR'
         world.light_settings.environment_energy = 1.
 
@@ -67,8 +67,10 @@ class BlenderInterface():
 
         if object_world_matrix is not None:
             obj.matrix_world = object_world_matrix
-
-        bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+        
+        bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
+        
+        bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN', center='MEDIAN')
         obj.location = (0., 0., 0.) # center the bounding box!
 
         if scale != 1.:

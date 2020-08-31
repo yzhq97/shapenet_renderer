@@ -14,6 +14,10 @@ p.add_argument('--num_observations', type=int, required=True, help='The path the
 p.add_argument('--sphere_radius', type=float, required=True, help='The path the output will be dumped to.')
 p.add_argument('--mode', type=str, required=True, help='Options: train and test')
 
+
+import os
+os.system('rm -rf ./data/3DFAW-Poisson-rendered/*')
+
 argv = sys.argv
 argv = sys.argv[sys.argv.index("--") + 1:]
 
@@ -42,5 +46,5 @@ hom_coords = np.array([[0., 0., 0., 1.]]).reshape(1, 4)
 obj_pose = np.concatenate((rot_mat, obj_location.reshape(3,1)), axis=-1)
 obj_pose = np.concatenate((obj_pose, hom_coords), axis=0)
 
-renderer.import_mesh(opt.mesh_fpath, scale=1., object_world_matrix=obj_pose)
+renderer.import_mesh(opt.mesh_fpath, scale=0.005, object_world_matrix=obj_pose)
 renderer.render(instance_dir, blender_poses, write_cam_params=True)
